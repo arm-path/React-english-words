@@ -4,6 +4,7 @@ import Button from '../../Components/UI/Button/Button'
 import Input from '../../Components/UI/Input/Input'
 import Select from '../../Components/UI/Select/Select'
 import {createFormControl, validateForm, validateInput} from '../../Form/FormControl/formControl'
+import Exercises from "../Exercises/Exercises";
 import classes from './CreateExercise.module.css'
 
 
@@ -48,6 +49,20 @@ class CreateExercise extends React.Component {
     }
 
     clickEventAddExercise = () => { // Событие клика по кнопке.
+        let stateCopy = {...this.state}
+        let formControl = {...stateCopy.formControl}
+        let correctAnswer = Number(stateCopy.correctAnswer)
+        let obj = {
+            'question': formControl.question.value,
+            'answers': [
+                {'text': formControl.answer1.value, id: formControl.answer1.id},
+                {'text': formControl.answer2.value, id: formControl.answer2.id},
+                {'text': formControl.answer3.value, id: formControl.answer3.id},
+                {'text': formControl.answer4.value, id: formControl.answer4.id}
+            ],
+            'correctAnswerId': correctAnswer
+        }
+        this.props.updateData(obj)
 
     }
 
@@ -97,7 +112,7 @@ class CreateExercise extends React.Component {
             // ---> Components/UI/Select/Select
             value={this.state.correctAnswer}
             label='Choose the correct translate'
-            onChangeSelect={(event) => this.onChangeSelect(event)}
+            onChange={(event) => this.onChangeSelect(event)}
             options={[ // Варианты выбора.
                 {'text': 1, 'value': 1},
                 {'text': 2, 'value': 2},
@@ -115,9 +130,9 @@ class CreateExercise extends React.Component {
                         <Button
                             onClick={this.clickEventAddExercise}
                             type='dark'
-                            disabled={!this.state.isFormValid}>Add Exercise
+                            // disabled={!this.state.isFormValid}
+                        >Add Exercise
                         </Button>
-
                     </form>
                 </div>
             </div>

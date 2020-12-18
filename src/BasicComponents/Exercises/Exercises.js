@@ -1,34 +1,19 @@
 import React from 'react'
 import ActiveExercise from '../../Components/Exercise/ActiveExercise/ActiveExercise'
 import FinishTheExercise from '../../Components/Exercise/FinishTheExercise/FinishTheExercise'
+import CreateExercise from '../CreateExercise/CreateExercise'
 import classes from './Exercises.module.css'
 
 
 class Exercises extends React.Component {
     state = {
+        test: '',
         results: {}, // Результаты. {id-exercise: error or success}
         NumberOfCorrectResults: 0, // Количество правильных резултатов.
         isFinished: false, // Завершение упражнений.
         activeExercise: 0, // Активное упражнение. Id упражнения.
         answerStyle: null, // Стиль при клике на ответ.
-        exercises: [ // Список упражнений. Слово и несколько вариантов перевода.
-            {
-                'id': 0, // Уникальный идентификатор упражнения.
-                'question': 'Select', // Вопрос, слово для перевода.
-                'answers': [
-                    {'text': 'Выбрать', id: 1}, {'text': 'Вставить', id: 2}, {'text': 'Вырезать', id: 3}
-                ], // Варианты ответа, варианты перевода.
-                'correctAnswerId': 1 // Правильный ответ, правильный перевод.
-            },
-            {
-                'id': 1, // Уникальный идентификатор упражнения.
-                'question': 'Insert', // Вопрос, слово для перевода.
-                'answers': [
-                    {'text': 'Выбрать', id: 1}, {'text': 'Вставить', id: 2}, {'text': 'Вырезать', id: 3}
-                ], // Варианты ответа, варианты перевода.
-                'correctAnswerId': 2 // Правильный ответ, правильный перевод.
-            }
-        ]
+        exercises: this.props.exercises // Список упражнений. <--- App.js
     }
 
     clickEventAnswer = idAnswer => { // Событие клика по возможному ответу, переводу.
@@ -83,8 +68,8 @@ class Exercises extends React.Component {
             activeExercise: 0,
             answerStyle: null,
         })
-
     }
+
 
     render() {
         return (
