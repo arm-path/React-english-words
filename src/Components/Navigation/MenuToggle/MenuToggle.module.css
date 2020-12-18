@@ -22,3 +22,10 @@
 .MenuToggle.Open{
     left: 25.3%;
 }
+
+@media (max-width: 500px) {
+    .MenuToggle{
+        font-size: 2.5em;
+    }
+
+}
