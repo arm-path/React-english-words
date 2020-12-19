@@ -13,9 +13,9 @@ const links = [ // Список навигации в менью.
 class Menu extends React.Component {
     linkDraw = links.map((obj, index) => { // Атрибут класса, выводит список навигации менью, итерируя по константе links.
         return (
-            <li key={index}>
-                <li key={index}><NavLink to={obj.to} exact={obj.exact} onClick={this.props.clickEventMenuBackground}>{obj.label}</NavLink></li>
-            </li>
+            <li key={index}><NavLink to={obj.to} exact={obj.exact}
+                                     onClick={this.props.clickEventMenuBackground}>{obj.label}</NavLink></li>
+
         )
     })
 

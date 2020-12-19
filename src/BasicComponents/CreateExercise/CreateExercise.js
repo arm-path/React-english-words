@@ -22,26 +22,30 @@ let CreateAnswerOptions = (index) => {
     )
 }
 
+let CreateFormControl = () => {
+    return {
+        question: createFormControl( // Вопрос, слово для перевода.
+            { // Конфигурации для передачи в input.
+                label: 'word',
+                errorMessage: 'The field cannot be empty'
+            },
+            { // Валидирование для передачи в input.
+                required: true // Поле обязательно для заполнения.
+            }),
+        // Варианты ответа, варианты перевода.
+        answer1: CreateAnswerOptions(1),
+        answer2: CreateAnswerOptions(2),
+        answer3: CreateAnswerOptions(3),
+        answer4: CreateAnswerOptions(4)
+    }
+}
+
 class CreateExercise extends React.Component {
 
     state = {
         isFormValid: false, // Определяет валидацию формы.
         correctAnswer: 1, // Правильный вариант ответа.
-        formControl: {
-            question: createFormControl( // Вопрос, слово для перевода.
-                { // Конфигурации для передачи в input.
-                    label: 'word',
-                    errorMessage: 'The field cannot be empty'
-                },
-                { // Валидирование для передачи в input.
-                    required: true // Поле обязательно для заполнения.
-                }),
-            // Варианты ответа, варианты перевода.
-            answer1: CreateAnswerOptions(1),
-            answer2: CreateAnswerOptions(2),
-            answer3: CreateAnswerOptions(3),
-            answer4: CreateAnswerOptions(4)
-        }
+        formControl: CreateFormControl()
     }
 
     preventDefaultSubmit = event => { // Отменяет стандартное поведение submit формы.
@@ -63,6 +67,9 @@ class CreateExercise extends React.Component {
             'correctAnswerId': correctAnswer
         }
         this.props.updateData(obj)
+
+        this.setState({formControl: CreateFormControl(), isFormValid: false, correctAnswer: 1})
+        // Возвращение state в первоначальное положение.
 
     }
 
@@ -130,7 +137,7 @@ class CreateExercise extends React.Component {
                         <Button
                             onClick={this.clickEventAddExercise}
                             type='dark'
-                            // disabled={!this.state.isFormValid}
+                            disabled={!this.state.isFormValid}
                         >Add Exercise
                         </Button>
                     </form>
